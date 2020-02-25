@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.13)
+project(MGR)
+include_directories(inc)
+include_directories(src)
+set(CMAKE_CXX_STANDARD 17)
+set(SOURCE_FILES main.cpp)
+add_executable(MGR main.cpp src/utils.cpp inc/utils.h src/cbc.cpp inc/cbc.h src/multilevel.cpp inc/multilevel.h)

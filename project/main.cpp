@@ -1,24 +1,22 @@
-#include <iostream>
-#include "utils.h"
-#include "cbc.h"
-#include <chrono>
 #include "multilevel.h"
+#include <functions.h>
+
+/*
+     * Implementation of Multilevel Algorithm for Product Weights
+     * Tested for weights of form w(i) = 0.9^(i)
+     * Can be easily extended for any product weights
+     *
+     * author Dawid Majchrowski
+*/
 
 int main() {
-    int n = 2003;
-    int d = 10;
-    std::chrono::steady_clock sc;
-    auto start = sc.now();
-
-    auto x = cbc(n, d);
-    auto xd = multilevel(1, x);
-    xd.find_shift(5, 5);
-    auto end = sc.now();
-    auto time_span = static_cast<std::chrono::duration<double>>(end - start);
-    std::cout<<"Algorithm done, took : "<<time_span.count()<<" seconds." << std::endl;
-    std::cout<<"Final z vector" << std::endl;
-//    for(auto &s: x){
-//        std::cout << s << ' ';
-//    }
+    double s = 3;
+    while (s < double(1 << 20)) {
+        s *= 1.3;
+        int S = (int) s;
+        auto ml = multilevel(S, f_infty_basic);
+        auto result = ml.calculate_multilevel();
+        std::cout << "Error: " << 4.5 - result.second << " Cost: " << result.first << std::endl;
+    }
     return 0;
 }

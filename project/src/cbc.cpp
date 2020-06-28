@@ -3,12 +3,12 @@
 cbc::cbc(int n, int d_max) {
     this->n = n;
     this->d_max = d_max;
-    this->random_search = (int) 1000 / d_max;
+    this->random_search = (int) 100;
     product = std::pair(0, 0);
-    long double weight = 0.9;
+    long double weight = 0.;
     for (int i = 0; i < d_max; ++i) {
+        weight = 1./((i+1)*(i+1));
         weights.push_back(weight);
-        weight *= 0.9;
     }
     for (int i = 0; i < n; ++i) {
         sum_products.push_back(1.);
@@ -75,6 +75,14 @@ std::vector<int> cbc::get_generators(bool save) {
 std::vector<long double> cbc::get_generators_with_shift() {
     std::vector<int> generators = get_generators(false);
     std::vector<int> best_shift(generators.size(), 0.0);
+
+//    std::vector<long double> result;
+//    result.reserve(generators.size());
+//    for (int i = 0; i < generators.size(); ++i) {
+//        result.push_back((long) (generators.at(i) + best_shift.at(i)) % this->n);
+//    }
+//    return result;
+
     std::vector<int> shift(generators.size(), 0.0);
     long double best_error = get_error(generators, shift);
 

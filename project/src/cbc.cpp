@@ -5,10 +5,11 @@ cbc::cbc(int n, int d_max) {
     this->d_max = d_max;
     this->random_search = (int) 100;
     product = std::pair(0, 0);
-    long double weight = 0.;
+    product = std::pair(0, 0);
+    long double weight = 0.9;
     for (int i = 0; i < d_max; ++i) {
-        weight = 1./((i+1)*(i+1));
         weights.push_back(weight);
+        weight *= 0.9;
     }
     for (int i = 0; i < n; ++i) {
         sum_products.push_back(1.);

@@ -39,7 +39,7 @@ long double f_infty_basic(int scope, std::valarray<long double> points) {
 }
 
 long double f_infty_exponent(int scope, std::valarray<long double> points) {
-    const long double NORM = 4.240401909495261331;
+    const long double NORM = 4.240401909495261331576021509025032849799081202287591825594;
 
     long double sum = 0.;
     for (int i = 0; i < scope; ++i) {
@@ -59,9 +59,6 @@ long double f_infty_products(int scope, std::valarray<long double> points) {
     }
     return sum / NORM;
 }
-
-}
-
 
 long double f_infty_basic_2(int scope, std::valarray<long double> points) {
     const long double NORM = M_PI / sqrt(6);

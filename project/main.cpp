@@ -19,17 +19,17 @@ int main() {
             file << std::endl;
         }
 
-        const long double res_const = 0.194665365062964292889930975996617503428954559581367742855
-                                      / 0.785985014380567852624666239896424898672966013218760629037;
+        const long double res_const = 9.201197890442720274372538475520024257973672112905565906276
+                                      / 5.403710913225487161271285234189044743121036544770606571157;
 //        double s = 3;
         double s = 50;
-        while (s < 220000) {
+        while (s < 100000) {
             auto start = std::chrono::steady_clock::now();
             s *= 1.3;
 //            s+=250;
 
             int S = (int) s;
-            auto ml = multilevel(S, f_infty_products_2);
+            auto ml = multilevel(S, f_infty_products);
             auto result = ml.calculate_multilevel();
             std::cout << "S: " << S << std::endl;
             std::cout << "Cost: " << result.first << std::endl;
@@ -46,7 +46,7 @@ int main() {
 
                 file << std::setprecision(15) << res_const - result.second;
             }
-            if (s < 220000) {
+            if (s < 100000) {
                 file << ",";
             }
         }

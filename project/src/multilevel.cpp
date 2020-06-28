@@ -13,16 +13,10 @@ multilevel::multilevel(int S, std::function<long double(int, std::valarray<long 
     this->f = std::move(f);
     this->tau = 1;
     this->cache = 0;
-//    long double weight = 0.9;
-//    for (int i = 0; i < 1 << this->m; ++i) {
-//        weights.push_back(weight);
-//        weight *= 0.9;
-//    }
-
-    long double weight = 0.;
+    long double weight = 0.9;
     for (int i = 0; i < 1 << this->m; ++i) {
-        weight = 1./((i+1)*(i+1));
         weights.push_back(weight);
+        weight *= 0.9;
     }
 }
 
@@ -45,7 +39,7 @@ std::pair<int, long double> multilevel::calculate_multilevel() {
         int n = get_next_prime(number);
         auto qmc_instance = qmc(n, this->f);
 //        cost += n * (start + end);
-        cost += n * (start*(start-1)/2. + end*(end-1)/2.);
+        cost += n * (start * (start - 1) / 2. + end * (end - 1) / 2.);
         approximation += qmc_instance.calculate_qmc(start, end);
     }
     return std::pair<int, long double>(cost, approximation);
